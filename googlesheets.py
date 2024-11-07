@@ -72,10 +72,11 @@ def unregister(number_action): # Удаление информации о вла
     worksheet.format(f'A{index}:F{index}', {"backgroundColor": {"red": 1.0, "green": 1.0, "blue": 1.0}})
     return temp_
 
+# def register_action(fio, number, tz): # Регистрация акции
 def register_action(number_action, fio, number, tz): # Регистрация акции
     all_ids = worksheet.col_values(1)
-    if str(number_action) not in all_ids:
-        return False
+    # all_ids_number = [int(i) for i in all_ids if i.isdigit()]
+    # number_action = all_ids_number[-1] + 1
     
     try:
         index = all_ids.index(str(number_action)) + 1
@@ -108,6 +109,6 @@ if __name__ == '__main__': # Небольшой тестовый код, даб�
             case "delete":
                 delete_action(number_action)
             case "register":
-                register_action(number_action, input("ФИО: "), input("Номер телефона: "), -1)
+                register_action(input("ФИО: "), input("Номер телефона: "), -1)
             case _:
                 pass

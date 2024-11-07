@@ -1,0 +1,155 @@
+body {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    min-height: 100vh; /* Ensures body takes the full viewport height */
+}
+
+.main {
+    width: 25%;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    width: 100%;
+}
+
+.input, .action-button, .contacts, .message {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.name, .phone, .action {
+    margin-top: 100px;
+    width: 100%;
+    max-width: 20vw;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: larger;
+    color: #666;
+}
+
+.name::placeholder, .phone::placeholder, .action::placeholder {
+    color: #999;
+    font-weight: normal;
+}
+
+.action {
+    margin-top: 140px;
+}
+
+.phone {
+    margin-top: 180px;
+}
+
+.action-button {
+    margin-top: 250px;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+}
+
+/* Стили для иконки стрелки */
+.action-button .arrow {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+/* Стили при наведении */
+.action-button:hover {
+    background-color: #f0f0f0;
+}
+
+.contacts {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin-top: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background-color: white;
+    width: 10vw;
+    height: 5vh;
+    color: black;
+    text-align: center;
+}
+
+.message {
+    font-family: 'Montserrat';
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin-top: 50px;
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    border-radius: 5px;
+    /* background-color: white; */
+    width: 22vw;
+    height: 30vh;
+    color: black;
+    text-align: left;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+
+.back-top {
+    width: 100%;
+}
+
+.ponarth-back {
+    position: absolute;
+    top: calc(100% - 69%);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 94%;
+}
+
+.ponarth {
+    position: absolute;
+    top: calc(100% - 40%);
+    left: 12%;
+    width: 55%;
+    z-index: 1;
+}
+
+.back-bottom {
+    width: 100%;
+    margin-top: -25%;
+}
+
+.main-text {
+    position: absolute;
+    line-height: 90%;
+    font-family: 'Montserrat';
+    text-align: left;
+    font-size: 50px;
+    left: 5%;
+    text-transform: uppercase;
+}
+
+@media screen and (max-width: 1200px){
+    .main {
+        width: 100%;
+    }
+    .main-text {
+        font-size: 40px;
+    }
+}

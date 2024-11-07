@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация акций</title>
+    <script src="/static/js/jquery-3.7.1.min.js"></script>
+    <script src="https://rawgit.com/RobinHerbots/Inputmask/5.x/dist/jquery.inputmask.js"></script>
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link href="/static/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="main">
+        <div class="container">
+            <p class="main-text">форма регистрации сувенирных акций</p>
+            <img src="/static/img/ponarth.svg" class="ponarth">
+            <img src="/static/img/ponarth-back.svg" class="ponarth-back">
+            <img src="/static/img/back-top.svg" class="back-top">
+        </div>
+        <div>
+            <input id="action_number" class="input action" name="action_number" placeholder="Введите номер акции" hidden required>
+            <input id="name_input" class="input name" name="name" placeholder="Ваше ФИО" required>
+            <input id="phone_input" class="input phone" name="phone_number" placeholder="Ваш номер телефона" required>
+            <button class="action-button" onclick="enableAction()">
+                <span class="arrow">➔</span> <!-- Иконка стрелки -->
+                стать партнером
+            </button>
+            <div class="contacts">
+                <img class="icon" src="static/img/alco.png" width="40vw">
+                <img class="icon" src="static/img/vk.png" width="40vw">
+                <img class="icon" src="static/img/tg.png" width="40vw">
+            </div>
+            <div id="message" class="message" style="display: none">
+                <p style="font-size: 50px;
+                          text-align: left;
+                          text-transform: uppercase;
+                          line-height: 90%;">Спасибо за регистрацию</p>
+                <p style="text-align: left;
+                          font-size: 17px;">Не забудьте  перейти по <strong>ссылке</strong> ниже, чтобы попасть в <strong>закрытое сообщество</strong> держателей сувенирных акций и участвовать в <strong>эксклюзивных</strong> кампаниях пивоварни Понарт</p>
+                <a style="text-align: left;
+                          color: #0094FF;
+                          font-size: 17px;
+                          font-weight: bold;
+                          text-transform: uppercase;
+                          text-decoration:underline;"
+                   href="https://t.me/+xFYrNP6FNrQ2MmRi">https://t.me/+xFYrNP6FNrQ2MmRi</a>
+            </div>
+            <img src="/static/img/back-bottom.svg" class="back-bottom">
+        </div>
+    </div>
+</body>
+<script>
+    var tz_offset = 0;
+    $(document).ready(function(){
+        tz_offset = -(new Date().getTimezoneOffset() / 60)-3
+        $('#phone_input').inputmask('+7 (999) 999-99-99');
+    });
+
+    function enableAction(){
+        const userName = document.getElementById("name_input").value;
+        const phoneNumber = document.getElementById("phone_input").value.replaceAll(' ', '').replaceAll('-', '').replaceAll('(', '').replaceAll(')', '').replaceAll('_', '');
+        if (userName != '' && phoneNumber != '' && phoneNumber.length == 12) {
+            $('#name_input').hide()
+            $('#phone_input').hide()
+            $('#action_number').show()
+            if ($('#action_number').val() != '') {
+                // console.log('ok.')
+                send($('#action_number').val(), userName, phoneNumber)
+            }
+        } else {
+            alert('Заполните все поля.')
+        }
+
+    }
+    async function send(action, fio, phone){
+        const response = await fetch("/register", {
+                method: "POST",
+                headers: { "Accept": "application/json", "Content-Type": "application/json" },
+                body: JSON.stringify({ 
+                    number_action: action,
+                    fio: fio,
+                    phone_number: phone,
+                    timezone: tz_offset
+                })
+            });
+            if (response.ok) {
+                const data = await response.json();
+                if (data[0]) {
+                    $('#action_number').hide()
+                    $('.action-button').hide()
+                    $('#message').css('display', 'block')
+
+                }
+            }
+            else
+                console.log(response);
+    }
+</script>
+</html>
